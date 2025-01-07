@@ -1,0 +1,174 @@
+/* General Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Arial', sans-serif;
+  }
+  
+  body {
+    background-color: #C7D08B; /* Light green background */
+    color: #000; /* Black text */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+  
+  .container {
+    display: flex;
+    justify-content: space-between;
+    width: 90%;
+    max-width: 1200px;
+  }
+  
+  .form-section {
+    width: 50%;
+    padding: 2rem;
+  }
+  
+  h1 {
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  .input-group {
+    margin-bottom: 1rem;
+  }
+  
+  label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-size: 1rem;
+  }
+  
+  input[type="text"],
+  input[type="email"],
+  input[type="password"] {
+    width: 100%;
+    padding: 0.8rem;
+    font-size: 1rem;
+    border: 1px solid #000;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+  }
+  
+  .checkbox-group {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1.5rem;
+  }
+  
+  .checkbox-group input {
+    margin-right: 0.5rem;
+  }
+  
+  .checkbox-group a {
+    color: #007BFF;
+    text-decoration: none;
+  }
+  
+  .checkbox-group a:hover {
+    text-decoration: underline;
+  }
+  
+  .btn {
+    width: 100%;
+    padding: 0.8rem;
+    font-size: 1rem;
+    color: #fff;
+    background-color: #6B8E23; /* Olive green button */
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .btn:hover {
+    background-color: #556B2F; /* Darker olive green */
+  }
+  
+  .divider {
+    text-align: center;
+    margin: 1rem 0;
+    position: relative;
+  }
+  
+  .divider span {
+    background: #C7D08B;
+    padding: 0 1rem;
+    position: relative;
+    z-index: 1;
+  }
+  
+  .divider:before {
+    content: '';
+    width: 100%;
+    height: 1px;
+    background: #000;
+    position: absolute;
+    top: 50%;
+    left: 0;
+    z-index: 0;
+  }
+  
+  .social-login {
+    display: flex;
+    gap: 1rem;
+    justify-content: space-between;
+    margin-bottom: 1.5rem;
+  }
+  
+  .google-btn,
+  .apple-btn {
+    flex: 1;
+    padding: 0.8rem;
+    font-size: 1rem;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .google-btn {
+    background-color: #4285F4; /* Google Blue */
+  }
+  
+  .google-btn:hover {
+    background-color: #3367D6;
+  }
+  
+  .apple-btn {
+    background-color: #000; /* Black */
+  }
+  
+  .apple-btn:hover {
+    background-color: #333;
+  }
+  
+  .login-link {
+    text-align: center;
+  }
+  
+  .login-link a {
+    color: #007BFF;
+    text-decoration: none;
+  }
+  
+  .login-link a:hover {
+    text-decoration: underline;
+  }
+  
+  .branding-section {
+    width: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .logo {
+    max-width: 80%;
+  }
