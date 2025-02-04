@@ -1,174 +1,231 @@
-/* General Reset */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Arial', sans-serif;
+/* General Styles */
+body {
+  font-family: 'Arial', sans-serif;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background-color: #f9f9f9;
+  overflow: hidden;
+}
+
+h1 {
+  font-size: 28px;
+  color: #333;
+  margin-bottom: 20px;
+  text-align: center;
+  animation: fadeIn 1s ease-in-out;
+}
+
+a {
+  text-decoration: none;
+  color: #007BFF;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+button {
+  cursor: pointer;
+  border: none;
+}
+
+/* Container */
+.container {
+  display: flex;
+  max-width: 1200px;
+  width: 100%;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  background-color: #fff;
+  border-radius: 10px;
+  overflow: hidden;
+  transform: scale(0.95);
+  animation: popIn 0.8s ease-out forwards;
+}
+
+@keyframes popIn {
+  0% {
+    transform: scale(0.8);
+    opacity: 0;
   }
-  
-  body {
-    background-color: #C7D08B; /* Light green background */
-    color: #000; /* Black text */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
+  100% {
+    transform: scale(1);
+    opacity: 1;
   }
-  
-  .container {
-    display: flex;
-    justify-content: space-between;
-    width: 90%;
-    max-width: 1200px;
+}
+
+/* Left Section: Signup Form */
+.signup-form {
+  flex: 1;
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background: linear-gradient(to bottom right, #fff, #f0f8f8);
+}
+
+form {
+  max-width: 400px;
+  margin: 0 auto;
+  animation: slideUp 1s ease-in-out;
+}
+
+@keyframes slideUp {
+  0% {
+    transform: translateY(20px);
+    opacity: 0;
   }
-  
-  .form-section {
-    width: 50%;
-    padding: 2rem;
+  100% {
+    transform: translateY(0);
+    opacity: 1;
   }
-  
-  h1 {
-    font-size: 2rem;
-    margin-bottom: 1.5rem;
+}
+
+label {
+  font-size: 14px;
+  color: #555;
+  margin-bottom: 5px;
+  display: block;
+}
+
+input {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 15px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+input:focus {
+  box-shadow: 0 0 10px rgba(0, 128, 0, 0.3);
+  transform: scale(1.02);
+}
+
+.terms {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 14px;
+  color: #555;
+}
+
+.btn {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  font-size: 16px;
+  font-weight: bold;
+  transition: background-color 0.3s, transform 0.2s;
+}
+
+.signup-btn {
+  background-color: #008000;
+  color: #fff;
+}
+
+.signup-btn:hover {
+  background-color: #006400;
+  transform: translateY(-3px);
+  box-shadow: 0 8px 16px rgba(0, 128, 0, 0.3);
+}
+
+.google-btn {
+  background-color: #db4a39;
+  color: #fff;
+}
+
+.google-btn:hover {
+  background-color: #b6382e;
+  transform: translateY(-3px);
+}
+
+.apple-btn {
+  background-color: #000;
+  color: #fff;
+}
+
+.apple-btn:hover {
+  background-color: #333;
+  transform: translateY(-3px);
+}
+
+.or-divider {
+  text-align: center;
+  margin: 20px 0;
+  color: #aaa;
+  font-size: 14px;
+}
+
+.signin-link {
+  text-align: center;
+  margin-top: 10px;
+  font-size: 14px;
+  color: #555;
+}
+
+/* Right Section: Logo */
+.logo-section {
+  flex: 1;
+  background: linear-gradient(to top left, #008000, #b8e994);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.logo-section img {
+  max-width: 300px;
+  width: 80%;
+  animation: logoBounce 2s infinite;
+}
+
+@keyframes logoBounce {
+  0%, 100% {
+    transform: translateY(0);
   }
-  
-  .input-group {
-    margin-bottom: 1rem;
+  50% {
+    transform: translateY(-10px);
   }
-  
-  label {
-    display: block;
-    margin-bottom: 0.5rem;
-    font-size: 1rem;
+}
+
+/* Floating Bubbles for Animation */
+.logo-section::before,
+.logo-section::after {
+  content: '';
+  position: absolute;
+  border-radius: 50%;
+  opacity: 0.5;
+  z-index: -1;
+}
+
+.logo-section::before {
+  width: 150px;
+  height: 150px;
+  background: rgba(255, 255, 255, 0.2);
+  bottom: 30%;
+  left: 10%;
+  animation: float 6s ease-in-out infinite;
+}
+
+.logo-section::after {
+  width: 100px;
+  height: 100px;
+  background: rgba(255, 255, 255, 0.1);
+  top: 20%;
+  right: 15%;
+  animation: float 8s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
   }
-  
-  input[type="text"],
-  input[type="email"],
-  input[type="password"] {
-    width: 100%;
-    padding: 0.8rem;
-    font-size: 1rem;
-    border: 1px solid #000;
-    border-radius: 8px;
-    background-color: #f9f9f9;
+  50% {
+    transform: translateY(-20px);
   }
-  
-  .checkbox-group {
-    display: flex;
-    align-items: center;
-    margin-bottom: 1.5rem;
-  }
-  
-  .checkbox-group input {
-    margin-right: 0.5rem;
-  }
-  
-  .checkbox-group a {
-    color: #007BFF;
-    text-decoration: none;
-  }
-  
-  .checkbox-group a:hover {
-    text-decoration: underline;
-  }
-  
-  .btn {
-    width: 100%;
-    padding: 0.8rem;
-    font-size: 1rem;
-    color: #fff;
-    background-color: #6B8E23; /* Olive green button */
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-  }
-  
-  .btn:hover {
-    background-color: #556B2F; /* Darker olive green */
-  }
-  
-  .divider {
-    text-align: center;
-    margin: 1rem 0;
-    position: relative;
-  }
-  
-  .divider span {
-    background: #C7D08B;
-    padding: 0 1rem;
-    position: relative;
-    z-index: 1;
-  }
-  
-  .divider:before {
-    content: '';
-    width: 100%;
-    height: 1px;
-    background: #000;
-    position: absolute;
-    top: 50%;
-    left: 0;
-    z-index: 0;
-  }
-  
-  .social-login {
-    display: flex;
-    gap: 1rem;
-    justify-content: space-between;
-    margin-bottom: 1.5rem;
-  }
-  
-  .google-btn,
-  .apple-btn {
-    flex: 1;
-    padding: 0.8rem;
-    font-size: 1rem;
-    color: #fff;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  
-  .google-btn {
-    background-color: #4285F4; /* Google Blue */
-  }
-  
-  .google-btn:hover {
-    background-color: #3367D6;
-  }
-  
-  .apple-btn {
-    background-color: #000; /* Black */
-  }
-  
-  .apple-btn:hover {
-    background-color: #333;
-  }
-  
-  .login-link {
-    text-align: center;
-  }
-  
-  .login-link a {
-    color: #007BFF;
-    text-decoration: none;
-  }
-  
-  .login-link a:hover {
-    text-decoration: underline;
-  }
-  
-  .branding-section {
-    width: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  
-  .logo {
-    max-width: 80%;
-  }
+}
