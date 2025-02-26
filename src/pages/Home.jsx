@@ -48,7 +48,7 @@ const Home = () => {
             <li><a href="#about-us" onClick={() => setIsMenuOpen(false)}>About Us</a></li>
             <li><a href="#why-us" onClick={() => setIsMenuOpen(false)}>Why Us?</a></li>
             <li><a href="#top-ratings" onClick={() => setIsMenuOpen(false)}>Top Ratings</a></li>
-            <li><a href="/RateNow" className="rate-now-btn">Rate Now</a></li>
+            <li><a href="/Login" className="rate-now-btn">Rate Now</a></li>
             <li><a href="#" className="search-icon" onClick={(e) => {
               e.preventDefault();
               toggleSearch();
@@ -83,7 +83,7 @@ const Home = () => {
           <p>Discover the best places and services with genuine reviews from real users. Make informed decisions based on community experiences.</p>
           <div className="cta-buttons">
             <a href="#top-ratings" className="primary-btn">Explore Top Picks</a>
-            <a href="/rate" className="secondary-btn">Share Your Experience</a>
+            <a href="/Login" className="secondary-btn">Share Your Experience</a>
           </div>
         </div>
       </section>
