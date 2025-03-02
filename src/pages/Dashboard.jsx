@@ -4,7 +4,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { 
   faHome, faCompass, faBookmark, faBell, 
   faUser, faPlus, faSearch, faCog, 
-  faStar, faComment, faHeart, faShare
+  faStar, faComment, faHeart, faShare,
+  faAdd
 } from '@fortawesome/free-solid-svg-icons';
 
 // Component for generating random color
@@ -112,11 +113,11 @@ const Sidebar = ({ activeTab, setActiveTab, notifications, setShowAddReviewModal
         </a>
         
         <a 
-          className={`menu-item ${activeTab === 'explore' ? 'active' : ''}`}
-          onClick={() => setActiveTab('explore')}
+          className={`menu-item ${activeTab === 'add' ? 'add' : ''}`}
+          onClick={() => setActiveTab('add')}
         >
-          <FontAwesomeIcon icon={faCompass} />
-          <span>Explore</span>
+          <FontAwesomeIcon icon={faAdd} />
+          <span>Add Rating</span>
         </a>
         
         <a 
