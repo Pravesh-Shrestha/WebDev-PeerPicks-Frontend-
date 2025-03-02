@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Eye, EyeOff, ArrowRight, LogIn } from "lucide-react";
 import "../styles/Login.css";
+import API from '../API/api'; // Import API from the path
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -16,16 +17,11 @@ const Login = () => {
     setIsLoading(true);
   
     try {
-      const response = await fetch("http://localhost:5000/api/users/login", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, password }),
-      });
-  
-      const data = await response.json();
+      const response = await API.post("/users/login", { email, password }); 
+      const data = response.data;
       console.log("Response Data:", data);
   
-      if (response.ok) {
+      if (response.status === 200) {
         if (email === "admin@gmail.com" && password === "admin12345") {
           navigate("/Admin-Dashboard");
         } else if (data.token) {

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import '../styles/Signup.css';
+import { registerUser } from '../API/api'; // Import the registerUser function
 
 const Signup = () => {
   const [username, setUsername] = useState('');
@@ -30,41 +31,33 @@ const Signup = () => {
     if (/[A-Z]/.test(password)) strength += 1;
     if (/[0-9]/.test(password)) strength += 1;
     if (/[^A-Za-z0-9]/.test(password)) strength += 1;
-    
+
     setPasswordStrength(strength);
   }, [password]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
+
     if (password !== confirmPassword) {
       showNotification("Passwords do not match!", "error");
       return;
     }
-    
+
     try {
       setIsLoading(true);
-      
-      const response = await fetch("http://localhost:5000/api/users/register", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ username, email, password }),
-      });
-      
-      if (!response.ok) {
-        const errorText = await response.text();
-        throw new Error(errorText || "Signup failed");
+
+      // Call registerUser API function
+      const response = await registerUser({ username, email, password });
+
+      if (response.success) {
+        showNotification("Signup Successful! Redirecting to login...", "success");
+
+        setTimeout(() => {
+          window.location.href = "/login";
+        }, 2000);
+      } else {
+        showNotification(response.message || "Signup failed", "error");
       }
-      
-      await response.json();
-      
-      showNotification("Signup Successful! Redirecting to login...", "success");
-      
-      setTimeout(() => {
-        window.location.href = "/login";
-      }, 2000);
     } catch (error) {
       console.error("Error:", error);
       showNotification(error.message || "Something went wrong!", "error");
@@ -77,13 +70,13 @@ const Signup = () => {
     const notification = document.createElement('div');
     notification.className = `notification ${type}`;
     notification.textContent = message;
-    
+
     document.body.appendChild(notification);
-    
+
     setTimeout(() => {
       notification.classList.add('show');
     }, 10);
-    
+
     setTimeout(() => {
       notification.classList.remove('show');
       setTimeout(() => {
@@ -99,7 +92,7 @@ const Signup = () => {
           <h1>Create Account</h1>
           <div className="pulse-animation"></div>
         </div>
-        
+
         <form onSubmit={handleSubmit}>
           <div className={`form-group ${activeField === 'username' ? 'active' : ''}`}>
             <label className="label-float">
@@ -114,7 +107,7 @@ const Signup = () => {
               <span>Username</span>
             </label>
           </div>
-          
+
           <div className={`form-group ${activeField === 'email' ? 'active' : ''}`}>
             <label className="label-float">
               <input
@@ -128,7 +121,7 @@ const Signup = () => {
               <span>Email</span>
             </label>
           </div>
-          
+
           <div className={`form-group ${activeField === 'password' ? 'active' : ''}`}>
             <label className="label-float">
               <input
@@ -141,7 +134,7 @@ const Signup = () => {
               />
               <span>Password</span>
             </label>
-            
+
             {password && (
               <div className="password-strength">
                 <div className="strength-bars">
@@ -160,7 +153,7 @@ const Signup = () => {
               </div>
             )}
           </div>
-          
+
           <div className={`form-group ${activeField === 'confirmPassword' ? 'active' : ''}`}>
             <label className="label-float">
               <input
@@ -174,7 +167,7 @@ const Signup = () => {
               <span>Confirm Password</span>
             </label>
           </div>
-          
+
           <button 
             type="submit" 
             className={`submit-button ${isLoading ? 'loading' : ''}`}
@@ -187,7 +180,7 @@ const Signup = () => {
             )}
           </button>
         </form>
-        
+
         <div className="login-redirect">
           Already have an account? <a href="/login">Log In</a>
         </div>
