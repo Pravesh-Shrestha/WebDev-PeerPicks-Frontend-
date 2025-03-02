@@ -14,34 +14,38 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsLoading(true);
-
+  
     try {
       const response = await fetch("http://localhost:5000/api/users/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, password }),
       });
-
+  
       const data = await response.json();
       console.log("Response Data:", data);
-
+  
       if (response.ok) {
         if (email === "admin@gmail.com" && password === "admin12345") {
           navigate("/Admin-Dashboard");
         } else if (data.token) {
+          // Store user details in localStorage
           localStorage.setItem("token", data.token);
+          localStorage.setItem("user_id", data.user_id);
+          localStorage.setItem("username", data.username);
+  
           setShowDialog(true);
-
+  
           // Automatically navigate after 3 seconds
           setTimeout(() => {
             setShowDialog(false);
-            navigate("/dashboard");
+            navigate("/");
           }, 2000);
         } else {
           alert("Login failed: No token received.");
         }
       } else {
-        alert(data.message || "Login failed. Please check your credentials.");
+        alert(data.error || "Login failed. Please check your credentials.");
       }
     } catch (error) {
       console.error("Error:", error);
@@ -50,6 +54,7 @@ const Login = () => {
       setIsLoading(false);
     }
   };
+  
 
   return (
     <div className="background-container">
