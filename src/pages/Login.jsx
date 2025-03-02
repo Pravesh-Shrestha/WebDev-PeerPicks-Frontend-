@@ -32,7 +32,7 @@ const Login = () => {
           // Store user details in localStorage
           localStorage.setItem("token", data.token);
           localStorage.setItem("user_id", data.user_id);
-          localStorage.setItem("username", data.username);
+          localStorage.setItem("userName", data.username);
   
           setShowDialog(true);
   

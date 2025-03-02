@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import '../styles/Dashboard.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { 
@@ -7,13 +7,42 @@ import {
   faStar, faComment, faHeart, faShare
 } from '@fortawesome/free-solid-svg-icons';
 
+// Component for generating random color
+const getRandomColor = (seed) => {
+  // Use seed to generate consistent colors for the same user
+  const hash = String(seed).split('').reduce((acc, char) => {
+    return char.charCodeAt(0) + ((acc << 5) - acc);
+  }, 0);
+  
+  const h = Math.abs(hash % 360);
+  return `hsl(${h}, 70%, 60%)`;
+};
+
+// Component for user avatar
+const UserAvatar = ({ name, size = 'medium' }) => {
+  const initial = name ? name.charAt(0).toUpperCase() : '?';
+  const backgroundColor = getRandomColor(name);
+  
+  const sizeClass = {
+    small: 'avatar-small',
+    medium: 'avatar-medium',
+    large: 'avatar-large'
+  }[size] || 'avatar-medium';
+  
+  return (
+    <div className={`user-avatar ${sizeClass}`} style={{ backgroundColor }}>
+      {initial}
+    </div>
+  );
+};
+
 // Component for a single review card
 const ReviewCard = ({ review }) => {
   return (
     <div className="review-card">
       <div className="review-header">
         <div className="review-author-img">
-          <img src={review.avatar} alt={review.author} />
+          <UserAvatar name={review.author} />
         </div>
         <div className="review-author-info">
           <div className="review-author-name">{review.author}</div>
@@ -65,7 +94,7 @@ const ReviewCard = ({ review }) => {
 };
 
 // Component for Sidebar
-const Sidebar = ({ activeTab, setActiveTab, notifications, setShowAddReviewModal }) => {
+const Sidebar = ({ activeTab, setActiveTab, notifications, setShowAddReviewModal, userName, userHandle }) => {
   return (
     <div className="sidebar">
       <div className="logo">
@@ -128,11 +157,11 @@ const Sidebar = ({ activeTab, setActiveTab, notifications, setShowAddReviewModal
 
       <div className="profile-section">
         <div className="profile-img">
-          <img src="/avatars/default.jpg" alt="Your profile" />
+          <UserAvatar name={userName} />
         </div>
         <div className="profile-info">
-          <div className="profile-name">Your Name</div>
-          <div className="profile-handle">@yourhandle</div>
+          <div className="profile-name">{userName}</div>
+          <div className="profile-handle">{userHandle}</div>
         </div>
       </div>
     </div>
@@ -187,18 +216,18 @@ const HomeFeed = ({ reviews }) => {
 };
 
 // Component for Profile Page
-const ProfileContent = ({ setShowAddReviewModal }) => {
+const ProfileContent = ({ setShowAddReviewModal, userName, userHandle }) => {
   return (
     <div className="profile-content">
       <div className="profile-header">
         <div className="profile-cover"></div>
         <div className="profile-details">
           <div className="profile-avatar">
-            <img src="/avatars/default.jpg" alt="Your profile" />
+            <UserAvatar name={userName} size="large" />
           </div>
           <div className="profile-text">
-            <h2>Your Name</h2>
-            <p className="profile-handle">@yourhandle</p>
+            <h2>{userName}</h2>
+            <p className="profile-handle">{userHandle}</p>
             <p className="profile-bio">Food enthusiast. Always on the hunt for the next great restaurant.</p>
           </div>
         </div>
@@ -249,8 +278,8 @@ const NotificationsContent = () => {
       </div>
       
       <div className="notification-item">
-        <div className="notification-icon">
-          <FontAwesomeIcon icon={faHeart} className="notification-heart" />
+        <div className="notification-avatar">
+          <UserAvatar name="Alex Morgan" size="small" />
         </div>
         <div className="notification-content">
           <p><strong>Alex Morgan</strong> liked your review of Coffee House</p>
@@ -259,8 +288,8 @@ const NotificationsContent = () => {
       </div>
       
       <div className="notification-item">
-        <div className="notification-icon">
-          <FontAwesomeIcon icon={faComment} className="notification-comment" />
+        <div className="notification-avatar">
+          <UserAvatar name="Jane Cooper" size="small" />
         </div>
         <div className="notification-content">
           <p><strong>Jane Cooper</strong> commented on your review: "Great recommendation!"</p>
@@ -269,8 +298,8 @@ const NotificationsContent = () => {
       </div>
       
       <div className="notification-item">
-        <div className="notification-icon">
-          <FontAwesomeIcon icon={faUser} className="notification-follow" />
+        <div className="notification-avatar">
+          <UserAvatar name="Sam Wilson" size="small" />
         </div>
         <div className="notification-content">
           <p><strong>Sam Wilson</strong> started following you</p>
@@ -289,7 +318,8 @@ const AddReviewModal = ({
   reviewImages, 
   setReviewImages, 
   handleAddReview, 
-  handleFileChange 
+  handleFileChange,
+  userName 
 }) => {
   return (
     <div className="modal-overlay">
@@ -305,6 +335,11 @@ const AddReviewModal = ({
         </div>
         
         <div className="modal-body">
+          <div className="modal-user-info">
+            <UserAvatar name={userName} size="small" />
+            <span className="modal-username">{userName}</span>
+          </div>
+          
           <textarea
             className="review-textarea"
             placeholder="Share your thoughts..."
@@ -392,6 +427,27 @@ const Dashboard = () => {
   const [notifications, setNotifications] = useState(3);
   const [reviewText, setReviewText] = useState('');
   const [reviewImages, setReviewImages] = useState([]);
+  const [userName, setUserName] = useState('Your Name');
+  const [userHandle, setUserHandle] = useState('@yourhandle');
+
+  // Load user data from localStorage on component mount
+  useEffect(() => {
+    const storedUserName = localStorage.getItem('userName');
+    const storedUserHandle = localStorage.getItem('userHandle');
+    
+    if (storedUserName) {
+      setUserName(storedUserName);
+    }
+    
+    if (storedUserHandle) {
+      setUserHandle(storedUserHandle);
+    } else if (storedUserName) {
+      // If we have a name but no handle, create a default handle
+      const defaultHandle = '@' + storedUserName.toLowerCase().replace(/\s+/g, '');
+      setUserHandle(defaultHandle);
+      localStorage.setItem('userHandle', defaultHandle);
+    }
+  }, []);
 
   // Sample reviews data
   const [reviews, setReviews] = useState([
@@ -399,7 +455,6 @@ const Dashboard = () => {
       id: 1,
       author: 'Jane Cooper',
       handle: '@janecooper',
-      avatar: '/avatars/jane.jpg',
       date: '2 hours ago',
       rating: 4.5,
       content: 'The new coffee shop on Main Street is a hidden gem! Great ambiance and even better coffee. Their pastries are to die for, especially the almond croissant.',
@@ -411,7 +466,6 @@ const Dashboard = () => {
       id: 2,
       author: 'Alex Morgan',
       handle: '@alexm',
-      avatar: '/avatars/alex.jpg',
       date: '1 day ago',
       rating: 3.5,
       content: 'Tried the new Thai restaurant downtown. Food was authentic and flavorful, but service was a bit slow. The Pad Thai is definitely worth trying though!',
@@ -435,9 +489,8 @@ const Dashboard = () => {
     
     const newReview = {
       id: reviews.length + 1,
-      author: 'Your Name',
-      handle: '@yourhandle',
-      avatar: '/avatars/default.jpg',
+      author: userName,
+      handle: userHandle,
       date: 'Just now',
       rating: 5,
       content: reviewText,
@@ -470,6 +523,8 @@ const Dashboard = () => {
         setActiveTab={setActiveTab} 
         notifications={notifications}
         setShowAddReviewModal={setShowAddReviewModal}
+        userName={userName}
+        userHandle={userHandle}
       />
 
       {/* Main Content */}
@@ -479,7 +534,13 @@ const Dashboard = () => {
 
         {/* Conditional rendering based on active tab */}
         {activeTab === 'home' && <HomeFeed reviews={reviews} />}
-        {activeTab === 'profile' && <ProfileContent setShowAddReviewModal={setShowAddReviewModal} />}
+        {activeTab === 'profile' && (
+          <ProfileContent 
+            setShowAddReviewModal={setShowAddReviewModal} 
+            userName={userName}
+            userHandle={userHandle}
+          />
+        )}
         {activeTab === 'notifications' && <NotificationsContent />}
       </div>
 
@@ -493,6 +554,7 @@ const Dashboard = () => {
           setReviewImages={setReviewImages}
           handleAddReview={handleAddReview}
           handleFileChange={handleFileChange}
+          userName={userName}
         />
       )}
     </div>
