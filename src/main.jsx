@@ -6,7 +6,7 @@ import "../src/index.css"; // Ensure styles are imported
 import Home from "../src/pages/Home";
 import Login from "../src/pages/Login";
 import Signup from "../src/pages/Signup";
-import Dashboard from "../src/pages/Dashboard";
+import Dashboard from "../src/component/dashboard/Dashboard";
 
 const ProtectedRoute = ({ element }) => {
   const token = localStorage.getItem("token");

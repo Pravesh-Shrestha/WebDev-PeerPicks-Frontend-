@@ -135,6 +135,98 @@
     background-color: var(--light-black);
     color: var(--text-light);
   }
+
+
+  .logout-btn {
+    background-color: #ff4d4f; /* Red background to signify logout */
+    color: white;
+    border: none;
+    border-radius: 50px;
+    padding: 12px;
+    margin: 20px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    transition: all 0.2s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  .logout-btn:hover {
+    background-color: #ff2a2a; /* Darker red when hovered */
+  }
+  
+  .logout-btn span {
+    margin-left: 10px;
+  }
+  
+  .logout-btn:focus {
+    outline: none;
+  }
+
+  .confirmation-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000; /* Ensure it's above other elements */
+  }
+  
+  .confirmation-modal-content {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 300px;
+    text-align: center;
+  }
+  
+  .confirmation-modal-content h3 {
+    font-size: 18px;
+    margin-bottom: 20px;
+    color: black;
+  }
+  
+  .modal-buttons {
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .confirm-btn,
+  .cancell-btn {
+    background-color: #4caf50; /* Green for confirm */
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s ease;
+  }
+  
+  .cancell-btn {
+    background-color: #f44336; /* Red for cancel */
+  }
+  
+  .confirm-btn:hover,
+  .cancell-btn:hover {
+    background-color: #45a049; /* Darker green for confirm on hover */
+  }
+  
+  .cancell-btn:hover {
+    background-color: #d32f2f; /* Darker red for cancel on hover */
+  }
+  
+  .confirm-btn:focus,
+  .cancell-btn:focus {
+    outline: none;
+  }
   
   .notification-indicator {
     position: absolute;

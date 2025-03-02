@@ -113,14 +113,6 @@ const Sidebar = ({ activeTab, setActiveTab, notifications, setShowAddReviewModal
         </a>
         
         <a 
-          className={`menu-item ${activeTab === 'add' ? 'add' : ''}`}
-          onClick={() => setActiveTab('add')}
-        >
-          <FontAwesomeIcon icon={faAdd} />
-          <span>Add Rating</span>
-        </a>
-        
-        <a 
           className={`menu-item ${activeTab === 'saved' ? 'active' : ''}`}
           onClick={() => setActiveTab('saved')}
         >
