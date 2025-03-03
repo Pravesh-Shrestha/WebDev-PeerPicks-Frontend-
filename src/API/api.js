@@ -45,14 +45,17 @@ export const loginUser = async (credentials) => {
   }
 };
 
-export const getUserProfile = async (token) => {
+// Axios call to fetch user profile by user_id
+export const getUserProfile = async (user_id) => { 
   try {
-    const response = await api.get("/users/profile", getAuthHeader(token));
-    return response.data;
+    const response = await axios.get(`${API_URL}/users/getUserById/${user_id}`);
+    return response.data;  // This will return the user profile data
   } catch (error) {
-    handleApiError(error, "Failed to fetch profile");
+    console.error("Profile fetch error:", error);
+    throw error.response ? error.response.data : error.message;
   }
 };
+
 
 // Rating API Calls
 export const getAllRatings = async (token) => {

@@ -496,7 +496,7 @@
   }
   
   /* Review Card Styles */
-  .review-card {
+  /* .review-card {
     background-color: var(--light-black);
     border-radius: 10px;
     padding: 20px;
@@ -639,7 +639,7 @@
   .review-action:hover svg {
     transform: scale(1.2);
   }
-  
+   */
   /* Modal Styles */
   .modal-overlay {
     position: fixed;
@@ -1273,10 +1273,10 @@
       flex-wrap: wrap;
     }
     
-    .review-image {
+    /* .review-image {
       width: calc(50% - 5px);
       height: 150px;
-    }
+    } */
     
     .review-actions-row {
       flex-direction: column;

@@ -11,6 +11,7 @@ const HomeFeed = ({ token }) => {
     const fetchReviews = async () => {
       try {
         const data = await getAllRatings(token);
+        console.log('Fetched reviews:', data); // Log the reviews for debugging
         setReviews(data);
       } catch (err) {
         setError(err.message);
@@ -40,9 +41,9 @@ const HomeFeed = ({ token }) => {
         <h2>Your Feed</h2>
       </div>
       {reviews.length > 0 ? (
-        reviews.map((review) => (
+        reviews.map((review, index) => (
           <ReviewCard 
-            key={review.id} 
+            key={review.id || index} // Fallback to index if id is missing
             review={review} 
             onDelete={() => handleDeleteReview(review.id)}
           />
@@ -53,4 +54,6 @@ const HomeFeed = ({ token }) => {
     </div>
   );
 };
+
 export default HomeFeed;
+
