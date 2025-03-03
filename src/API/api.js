@@ -57,7 +57,7 @@ export const getUserProfile = async (token) => {
 // Rating API Calls
 export const getAllRatings = async (token) => {
   try {
-    const response = await api.get("/ratings", getAuthHeader(token));
+    const response = await api.get("/ratings/getAllRatings", getAuthHeader(token));
     return response.data;
   } catch (error) {
     handleApiError(error, "Error fetching ratings");
@@ -66,7 +66,7 @@ export const getAllRatings = async (token) => {
 
 export const getRatingById = async (id, token) => {
   try {
-    const response = await api.get(`/ratings/${id}`, getAuthHeader(token));
+    const response = await api.get(`/ratings/getRatingsById/${id}`, getAuthHeader(token));
     return response.data;
   } catch (error) {
     handleApiError(error, "Error fetching rating");
@@ -75,7 +75,16 @@ export const getRatingById = async (id, token) => {
 
 export const addRating = async (ratingData, token) => {
   try {
-    const response = await api.post("/ratings", ratingData, getAuthHeader(token));
+    const response = await api.post(
+      "/ratings/addRating", 
+      ratingData, 
+      { 
+        headers: { 
+          Authorization: `Bearer ${token}`, 
+          "Content-Type": "multipart/form-data" 
+        }
+      }
+    );
     return response.data;
   } catch (error) {
     handleApiError(error, "Error creating rating");
@@ -84,7 +93,16 @@ export const addRating = async (ratingData, token) => {
 
 export const updateRating = async (id, ratingData, token) => {
   try {
-    const response = await api.put(`/ratings/${id}`, ratingData, getAuthHeader(token));
+    const response = await api.put(
+      `/ratings/updateRating/${id}`, 
+      ratingData, 
+      { 
+        headers: { 
+          Authorization: `Bearer ${token}`, 
+          "Content-Type": "multipart/form-data" 
+        }
+      }
+    );
     return response.data;
   } catch (error) {
     handleApiError(error, "Error updating rating");
@@ -93,7 +111,7 @@ export const updateRating = async (id, ratingData, token) => {
 
 export const deleteRating = async (id, token) => {
   try {
-    const response = await api.delete(`/ratings/${id}`, getAuthHeader(token));
+    const response = await api.delete(`/ratings/deleteRating/${id}`, getAuthHeader(token));
     return response.data;
   } catch (error) {
     handleApiError(error, "Error deleting rating");
@@ -103,7 +121,7 @@ export const deleteRating = async (id, token) => {
 // Business API Calls
 export const getAllBusinesses = async () => {
   try {
-    const response = await api.get("/businesses");
+    const response = await api.get("/businesses/getAllBusiness");
     return response.data;
   } catch (error) {
     handleApiError(error, "Error fetching businesses");
@@ -112,7 +130,7 @@ export const getAllBusinesses = async () => {
 
 export const getBusinessById = async (id) => {
   try {
-    const response = await api.get(`/businesses/${id}`);
+    const response = await api.get(`/businesses/getBusinessById/${id}`);
     return response.data;
   } catch (error) {
     handleApiError(error, "Error fetching business");
@@ -121,7 +139,7 @@ export const getBusinessById = async (id) => {
 
 export const addBusiness = async (businessData, token) => {
   try {
-    const response = await api.post("/businesses", businessData, getAuthHeader(token));
+    const response = await api.post("/businesses/addBusiness", businessData, getAuthHeader(token));
     return response.data;
   } catch (error) {
     handleApiError(error, "Error creating business");
@@ -130,7 +148,7 @@ export const addBusiness = async (businessData, token) => {
 
 export const updateBusiness = async (id, businessData, token) => {
   try {
-    const response = await api.put(`/businesses/${id}`, businessData, getAuthHeader(token));
+    const response = await api.put(`/businesses/updateBusiness/${id}`, businessData, getAuthHeader(token));
     return response.data;
   } catch (error) {
     handleApiError(error, "Error updating business");
@@ -139,7 +157,7 @@ export const updateBusiness = async (id, businessData, token) => {
 
 export const deleteBusiness = async (id, token) => {
   try {
-    const response = await api.delete(`/businesses/${id}`, getAuthHeader(token));
+    const response = await api.delete(`/businesses/deleteBusiness/${id}`, getAuthHeader(token));
     return response.data;
   } catch (error) {
     handleApiError(error, "Error deleting business");
@@ -149,7 +167,7 @@ export const deleteBusiness = async (id, token) => {
 // Message API Calls
 export const getAllMessages = async (token) => {
   try {
-    const response = await api.get("/messages", getAuthHeader(token));
+    const response = await api.get("/messages/getAllMessages", getAuthHeader(token));
     return response.data;
   } catch (error) {
     handleApiError(error, "Error fetching messages");
@@ -158,7 +176,7 @@ export const getAllMessages = async (token) => {
 
 export const getMessageById = async (id, token) => {
   try {
-    const response = await api.get(`/messages/${id}`, getAuthHeader(token));
+    const response = await api.get(`/messages/getMessagesById/${id}`, getAuthHeader(token));
     return response.data;
   } catch (error) {
     handleApiError(error, "Error fetching message");
@@ -167,7 +185,7 @@ export const getMessageById = async (id, token) => {
 
 export const addMessage = async (messageData, token) => {
   try {
-    const response = await api.post("/messages", messageData, getAuthHeader(token));
+    const response = await api.post("/messages/addMessage", messageData, getAuthHeader(token));
     return response.data;
   } catch (error) {
     handleApiError(error, "Error creating message");
@@ -176,7 +194,7 @@ export const addMessage = async (messageData, token) => {
 
 export const deleteMessage = async (id, token) => {
   try {
-    const response = await api.delete(`/messages/${id}`, getAuthHeader(token));
+    const response = await api.delete(`/messages/deleteMessage/${id}`, getAuthHeader(token));
     return response.data;
   } catch (error) {
     handleApiError(error, "Error deleting message");

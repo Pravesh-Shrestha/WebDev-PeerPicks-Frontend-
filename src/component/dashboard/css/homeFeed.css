@@ -1,0 +1,37 @@
+.home-feed-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  
+  .feed-title {
+    font-size: 2rem;
+    color: #333;
+    margin-bottom: 24px;
+    text-align: center;
+    font-weight: 600;
+  }
+  
+  .reviews-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 24px;
+  }
+  
+  .no-reviews {
+    text-align: center;
+    padding: 40px;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    margin-top: 20px;
+  }
+  
+  @media (max-width: 768px) {
+    .reviews-grid {
+      grid-template-columns: 1fr;
+    }
+    
+    .feed-title {
+      font-size: 1.5rem;
+    }
+  }
