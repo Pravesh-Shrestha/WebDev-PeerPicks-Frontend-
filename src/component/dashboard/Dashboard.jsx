@@ -8,7 +8,6 @@ import NotificationsContent from './NotificationsContent';
 import AddReviewModal from './AddReviewModal';
 import '../../styles/Dashboard.css'
 
-
 const Dashboard = () => {
   const [activeTab, setActiveTab] = useState('home');
   const [showAddReviewModal, setShowAddReviewModal] = useState(false);
@@ -22,6 +21,7 @@ const Dashboard = () => {
     <div className="dashboard-container">
       <Sidebar activeTab={activeTab} setActiveTab={setActiveTab} notifications={notifications} setShowAddReviewModal={setShowAddReviewModal} userName={userName} userHandle={userHandle} />
       <div className="main-content">
+        <Header notifications={notifications} />
         {activeTab === 'home' && <HomeFeed reviews={[]} />}
         {activeTab === 'profile' && <ProfileContent setShowAddReviewModal={setShowAddReviewModal} userName={userName} userHandle={userHandle} />}
         {activeTab === 'notifications' && <NotificationsContent />}
